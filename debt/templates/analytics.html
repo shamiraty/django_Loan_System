@@ -1,0 +1,124 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="card shadow">
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-3 mt-1">
+                    <div class="card bg-dark" style="padding:15px;">
+                        <div class="card-body">
+                            <div class="card-header text-warning">Total Requested Amount</div>
+                            <h3 class="text-white">{{ formatted_sum_data.total_requested_amount }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3 mt-1">
+                    <div class="card bg-dark" style="padding:15px;">
+                        <div class="card-body">
+                            <div class="card-header text-warning">Total Interest:</div>
+                            <h3 class="text-white">{{ formatted_sum_data.total_interest }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mt-1">
+                    <div class="card bg-dark" style="padding:15px;">
+                        <div class="card-body">
+                            <div class="card-header text-warning">Total Actual Debt:</div>
+                            <h3 class="text-white">{{ formatted_sum_data.total_actual_debt }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3 mt-1">
+                    <div class="card bg-dark" style="padding:15px;">
+                        <div class="card-body">
+                            <div class="card-header text-warning">Total Cash Receivable:</div>
+                            <h3 class="text-white">{{ formatted_sum_data.total_cash_receivable }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+               
+                <div class="img-thumbnail mt-2"> 
+                <table class="table table-bordered border-secondary table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Assigned</th>
+                        <th>Requested</th>
+                        <th>Interest</th>
+                        <th>ActualDebt</th>
+                        <th>CashTaken</th>
+                        <th>Installments</th>
+                        <th>Loan Issued</th>
+                        <th>Quality Fee</th>
+                        <th>Insurance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for loan in loans_with_customers %}
+                    <tr>
+
+                        <td>{{ loan.Customer.FirstName }}</td>
+                        <td>{{ loan.Customer.CustomerNationalID }}</td>
+                        <td>{{ loan.Customer.RegisteredDate }}</td>
+                        <td>{{ loan.RequestedAmount }}</td>
+                        <td>{{ loan.Interest }}</td>
+                        <td>{{ loan.ActualDebt }}</td>
+                        <td>{{ loan.CashReceivable }}</td>
+                        <td>{{ loan.MonthlyInstallment }}</td>
+                        <td>{{ loan.RegisteredDate }}</td>
+                        <td>{{ loan.QualityAssurance }}</td>
+                        <td>{{ loan.Insurance }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="card border-secondary">
+            <div class="card-header bg-secondary">Header</div>
+            {{ bar_graph_html|safe }}
+            </div>          
+            </div>
+            </div>
+            </div>  
+            
+            <script>
+                jQuery(function($){
+                    $('.table').footable({
+                        "paging": {
+                            "enabled": true
+                        },
+                        "filtering": {
+                            "enabled": true
+                        },
+                        "sorting": {
+                            "enabled": true
+                        },
+                        "paging": {
+                        "enabled": true,
+                        "size": 5, // Number of rows per page
+                        "position": "center" // Position of the pagination controls
+                    },
+                    "filtering": {
+                        "enabled": true,
+                        "placeholder": "Search..." // Custom search input placeholder
+                    },
+
+
+                    });
+                });
+
+            </script>
+            {% endblock %}
+
+            

@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+
+
+<div class="container mt-4">
+    <div class="card-body">
+        <div class="row"> 
+            <div class="col-md-12">
+               <div class="row">
+                        <div class="col-md-6 mt-1">
+                            <div class="card bg-dark" style="padding:15px;">
+                                <div class="card-body">
+                                    <div class="card-header text-warning">🟡Cash Requested Loan</div>
+                                    <h3 class="text-white">{{total_requested_loan }}</h3>
+                                </div>
+                            </div>
+                        </div>       
+                        <div class="col-md-6 mt-1">
+                            <div class="card bg-dark" style="padding:15px;">
+                                <div class="card-body">
+                                    <div class="card-header text-warning">🟡Business Target:</div>
+                                    <h3 class="text-white">{{target}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                </div>                           
+                 <div class="card border-secondary mt-2">                   
+                    <div class="card-body text-primary">
+                      <h5 class="card-title">Realtime KPI </h5>
+                      <h1>🚦</h1>
+                      {{ gauge|safe }}
+                    </div>       
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+
+        {% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+{% load crispy_forms_tags %}
+<div class="container mt-4">
+
+    <h1 class="text-dark"> Add New Customer</h1>
+    <div class="card border-secondary">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <div class="card-header bg-secondary text-light">Add Customer</div>
+                <img src="{% static 'img/log4.jpg' %}"class="img-fluid rounded-start" alt="...">
+               
+                   <h4 class="text-dark"style="padding: 4px;">PassportSize & NationalID Specifications</h4>
+                     <ul class="list-group list-group-flush"style="padding: 4px;">
+                        <li class="list-group-item">⚠ Size: 1 MB or Less</li>
+                        <li class="list-group-item">⚠ Extensions: PNG,JPEG,JPG</li>
+                        <li class="list-group-item">⚠ width: 800,  height: 600</li>                       
+                      </ul>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Add a New Customer</h5>
+                    <form method="POST" enctype="multipart/form-data" class="mt-1" autocomplete="off" novalidate>
+                        {% csrf_token %}
+                        {{form.media}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                              <div class="row">
+                                    <div class="col-md-6">{{form.FirstName | as_crispy_field}} </div>
+                                    <div class="col-md-6">{{form.LastName | as_crispy_field}} </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">{{form.FullName | as_crispy_field}} </div>
+                                    <div class="col-md-6">{{form.CustomerNationalID | as_crispy_field}} </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">{{form.Resident | as_crispy_field}} </div>
+                                    <div class="col-md-6">{{form.PhoneNumber | as_crispy_field}} </div>
+                                </div>
+                      
+                                <div class="row">
+                                    <div class="col-md-6">{{form.PassportSize | as_crispy_field}}
+                                        <div class="card shadow mt-1 w-50">
+                                            <div class="card-body ">
+                                        <canvas id="passportCanvas" class="img-thumbnail bg-dark"></canvas> 
+                                   </div>
+                                   </div>                        
+                                    </div>
+                                    <div class="col-md-6">{{form.NationalID | as_crispy_field}} 
+                                    <canvas id="nationalIDCanvas" class="img-thumbnail w-50 mt-1 bg-dark"></canvas>
+                                     </div> 
+                                    
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">{{form.BusinessType | as_crispy_field}} </div>
+                                    <div class="col-md-6">{{form.DateOfBirth | as_crispy_field}} </div>
+                                </div>
+
+                            
+                                <button class="btn btn-success mt-4 w-25">Submit</button>
+                                <input type="reset"class="btn btn-danger mt-4 w-25"Value="Reset">
+                    </form>
+                    <!--message from backend-->
+                    {%for message in messages%}
+                    {%if message %}
+                    <div class="text center mt-3 alert alert-primary alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <a herf="{%url 'home'%}" type="button" class="btn btn-close" data-bs-dismiss="alert"
+                           aria-label="Close"></a>
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--passportsize canvas-->
+    <script>
+        const passportInput = document.getElementById('id_PassportSize');
+        const passportCanvas = document.getElementById('passportCanvas');
+        const canvasContext = passportCanvas.getContext('2d');
+        passportInput.addEventListener('change', handleFileSelect);
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+
+                    img.onload = function () {
+                        canvasContext.clearRect(0, 0, passportCanvas.width, passportCanvas.height);
+
+                        // Adjust canvas dimensions to match image dimensions
+                        passportCanvas.width = img.width;
+                        passportCanvas.height = img.height;
+
+                        // Draw the image on the canvas
+                        canvasContext.drawImage(img, 0, 0, img.width, img.height);
+                    };
+                };
+
+                reader.readAsDataURL(file);
+            }   
+        }
+    </script>
+
+
+<!--NationalID canvas-->
+<script>
+    const nationalIDInput = document.getElementById('id_NationalID');
+    const nationalIDCanvas = document.getElementById('nationalIDCanvas');
+    const canvasContext2 = nationalIDCanvas.getContext('2d');
+    nationalIDInput.addEventListener('change', handleFileSelect);
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function () {
+                    canvasContext2.clearRect(0, 0, nationalIDCanvas.width, nationalIDCanvas.height);
+
+                    // Adjust canvas dimensions to match image dimensions
+                    nationalIDCanvas.width = img.width;
+                    nationalIDCanvas.height = img.height;
+
+                    // Draw the image on the canvas
+                    canvasContext2.drawImage(img, 0, 0, img.width, img.height);
+                };
+            };
+
+            reader.readAsDataURL(file);
+        }       
+    }
+</script>
+
+
+    {% endblock %}

@@ -1,0 +1,23 @@
+# pip install django-cleanup
+https://pypi.org/project/django-cleanup/
+
+# pip install django-bootstrap-datepicker-plus
+https://pypi.org/project/django-bootstrap-datepicker-plus/
+
+# pip install crispy-bootstrap4
+https://pypi.org/project/crispy-bootstrap4/
+
+# pip install django-crispy-forms
+https://pypi.org/project/django-crispy-forms/
+
+# jazmin
+https://django-jazzmin.readthedocs.io/
+ 
+#https://pypi.org/project/plotly/
+https://pypi.org/project/plotly/
+
+#
+https://docs.djangoproject.com/en/5.0/topics/install/
+
+# pip install mysql-connector-python
+https://pypi.org/project/mysql-connector-python/

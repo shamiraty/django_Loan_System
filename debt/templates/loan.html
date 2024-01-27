@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+{% load crispy_forms_tags %}
+<div class="container mt-4">
+
+    <h1 class="text-dark">💰 Add Customer Loan</h1>
+    </body>
+    <div class="card border-secondary">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <div class="card-header bg-secondary">Add Loan</div>
+                <img src="{% static 'img/log4.jpg' %}"
+                     class="img-fluid rounded-start" alt="...">
+
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Register a new Customer Loan</h5>
+
+                    <form method="POST" enctype="multipart/form-data" class="mt-1" autocomplete="off" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{form | crispy }}
+                                <button class="btn btn-success mt-4 w-25">Submit</button>
+                                <input type="reset"class="btn btn-danger mt-4 w-25"Value="Reset">
+                    </form>
+                    <!--message from backend-->
+                    {%for message in messages%}
+                    {%if message %}
+                    <div class="text center mt-3 alert alert-primary alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <a herf="{%url 'home'%}" type="button" class="btn btn-close" data-bs-dismiss="alert"
+                           aria-label="Close"></a>
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

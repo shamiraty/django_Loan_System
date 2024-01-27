@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+
+
+<div class="container-fluid mt-4">
+    <div class="card border-secondary">
+        <div class="card-header bg-secondary">Loan and Customer Graph</div>
+        <div class="card-body text-primary">
+          <h1>🚦</h1>
+          {{ graph_html | safe }}
+        </div>
+      </div>
+</div>
+{% endblock %}
+
+       
+
+       

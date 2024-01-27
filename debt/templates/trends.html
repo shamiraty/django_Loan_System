@@ -1,0 +1,93 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+
+
+<div class="container mt-4">
+
+    <div class="img-thumbnail">
+    
+                <table class="table table-bordered border-secondary table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Interest: Actual Value</th>
+                        <th>Z Score</th>
+                        <th>Probability Density [ PDF ]</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entry in z_score_table %}
+                    <tr>
+                        <td>{{ entry.Interest }}</td>
+                        <td>{{ entry.Z_Score }}</td>  <!-- Use underscores or concatenate -->
+                        <td>{{ entry.PDF }}</td>
+                        <td>{{ entry.Status}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            
+
+                <div class="alert bg-dark text-light">
+                    Note: if status is normally, then The loans taken have interest rates that are close to each other. This suggests that the interest
+                    rates are estimated to be normally distributed, and no customer has taken a significantly higher
+                    loan with a higher interest rate
+                </div>
+<div class="row">
+            <div class="col-md-8 mt-1">
+                <div class="card border-secondary">
+                    <div class="card-header bg-secondary">Figure 1</div>
+                    <div class="card-body text-primary">
+                      <h5 class="card-title"></h5>
+                      {{ distribution_html|safe }}
+                    </div>
+                  </div>
+            </div>
+       
+
+            <div class="col-md-4 mt-1">
+                <div class="card border-secondary">
+                    <div class="card-header bg-secondary">Figure 2</div>
+                    <div class="card-body text-primary">
+                      <h5 class="card-title"></h5>
+                      {{ box_plot_html|safe }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <script>
+            jQuery(function($){
+                $('.table').footable({
+                    "paging": {
+                        "enabled": true
+                    },
+
+                    "sorting": {
+                        "enabled": true
+                    },
+                    "paging": {
+                    "enabled": true,
+                    "size": 7, // Number of rows per page
+                    "position": "center" // Position of the pagination controls
+                },
+
+                "filtering": {
+                    "enabled": true,
+                    "placeholder": "Search..." // Custom search input placeholder
+                },
+                "filtering": {
+                        "enabled": true
+                    },
+
+                });
+            });
+
+        </script>
+        {% endblock %}
+
+       
+
+       
